@@ -1,0 +1,85 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum Prioridade {
+  BAIXA
+  MEDIA
+  ALTA
+}
+
+enum StatusOrdem {
+  ABERTA
+  EM_ANALISE
+  EM_EXECUCAO
+  AGUARDANDO
+  CONCLUIDA
+  CANCELADA
+}
+
+model Setor {
+  id           Int            @id @default(autoincrement())
+  nome         String         @unique
+  ativo        Boolean        @default(true)
+  dataCriacao  DateTime       @default(now())
+  funcionarios Funcionario[]
+  ordens       OrdemServico[] @relation("OrdemSetorResponsavel")
+}
+
+model Funcionario {
+  id          Int            @id @default(autoincrement())
+  nome        String
+  ativo       Boolean        @default(true)
+  setorId     Int
+  setor       Setor          @relation(fields: [setorId], references: [id])
+  ordens      OrdemServico[] @relation("OrdemFuncionarioResponsavel")
+
+  @@index([setorId])
+}
+
+model Solicitante {
+  id       Int            @id @default(autoincrement())
+  nome     String
+  telefone String?
+  setor    String?
+  ordens   OrdemServico[]
+}
+
+model OrdemServico {
+  id                       Int                    @id @default(autoincrement())
+  numero                   Int                    @unique
+  titulo                   String
+  descricao                String
+  prioridade               Prioridade
+  status                   StatusOrdem            @default(ABERTA)
+  setorResponsavelId       Int
+  funcionarioResponsavelId Int?
+  solicitanteId            Int
+  dataAbertura             DateTime               @default(now())
+  dataConclusao            DateTime?
+  observacoes              String?
+  setorResponsavel         Setor                  @relation("OrdemSetorResponsavel", fields: [setorResponsavelId], references: [id])
+  funcionarioResponsavel   Funcionario?           @relation("OrdemFuncionarioResponsavel", fields: [funcionarioResponsavelId], references: [id])
+  solicitante              Solicitante            @relation(fields: [solicitanteId], references: [id])
+  historico                OrdemServicoHistorico[]
+
+  @@index([setorResponsavelId])
+  @@index([funcionarioResponsavelId])
+  @@index([solicitanteId])
+}
+
+model OrdemServicoHistorico {
+  id             Int          @id @default(autoincrement())
+  ordemServicoId Int
+  acao           String
+  descricao      String
+  criadoEm       DateTime     @default(now())
+  ordemServico   OrdemServico @relation(fields: [ordemServicoId], references: [id], onDelete: Cascade)
+
+  @@index([ordemServicoId])
+}

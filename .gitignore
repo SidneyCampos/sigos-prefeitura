@@ -1,0 +1,6 @@
+node_modules
+dist
+.env
+backend/prisma/database.db
+backend/prisma/database.db-journal
+frontend/.vite
