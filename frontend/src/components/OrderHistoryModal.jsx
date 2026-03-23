@@ -21,7 +21,7 @@ function OrderHistoryModal({ ordem, setores, funcionarios, solicitantes, onClose
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/45 p-4">
-      <div className="max-h-[90vh] w-full max-w-5xl overflow-y-auto rounded-3xl bg-white p-6 shadow-soft">
+      <div className="max-h-[90vh] w-full max-w-5xl overflow-y-auto rounded-3xl bg-white p-6 shadow-sm">
         <div className="flex items-start justify-between gap-4">
           <div>
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-teal-700">Ordem #{ordem.numero}</p>

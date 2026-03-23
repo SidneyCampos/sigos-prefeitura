@@ -1,6 +1,6 @@
 function EmptyState({ message }) {
   return (
-    <div className="rounded-3xl border-2 border-dashed border-slate-200 bg-white p-8 text-center text-slate-500">
+    <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-6 text-center text-sm text-slate-500 sm:p-8 sm:text-base">
       {message}
     </div>
   );
