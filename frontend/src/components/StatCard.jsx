@@ -1,14 +1,16 @@
-function StatCard({ title, value, tone = "teal" }) {
+function StatCard({ title, value, tone = "blue" }) {
   const tones = {
-    teal: "from-teal-700 to-emerald-500",
-    amber: "from-amber-500 to-orange-400",
-    blue: "from-sky-600 to-cyan-500"
+    blue: "border-blue-200 bg-blue-50 text-blue-950",
+    slate: "border-slate-200 bg-slate-50 text-slate-900",
+    green: "border-emerald-200 bg-emerald-50 text-emerald-900",
   };
 
   return (
-    <div className={`rounded-3xl bg-gradient-to-br ${tones[tone]} p-5 text-white shadow-soft`}>
-      <p className="text-sm uppercase tracking-[0.2em] text-white/80">{title}</p>
-      <p className="mt-3 text-4xl font-black">{value}</p>
+    <div className={`rounded-2xl border p-4 shadow-sm ${tones[tone] || tones.blue}`}>
+      <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">
+        {title}
+      </p>
+      <p className="mt-3 text-3xl font-bold sm:text-4xl">{value}</p>
     </div>
   );
 }
