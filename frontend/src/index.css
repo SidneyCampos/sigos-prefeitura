@@ -1,11 +1,36 @@
 @import "tailwindcss";
 
 :root {
+  color-scheme: light;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  color: #1e293b;
-  background:
-    radial-gradient(circle at top left, rgba(59, 130, 246, 0.08), transparent 28%),
-    linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%);
+  --app-bg: linear-gradient(180deg, #edf2f8 0%, #f7f9fc 100%);
+  --surface: #ffffff;
+  --surface-muted: #f7f9fc;
+  --surface-soft: #eff4fa;
+  --border-color: #d8e1ee;
+  --text-strong: #172033;
+  --text-base: #44516a;
+  --text-soft: #6b7891;
+  --primary: #1f4e89;
+  --primary-strong: #183b67;
+  --primary-soft: #e9f1fb;
+  --shadow-soft: 0 16px 38px rgba(15, 23, 42, 0.08);
+}
+
+.dark {
+  color-scheme: dark;
+  --app-bg: linear-gradient(180deg, #0f1724 0%, #111c2d 100%);
+  --surface: #162131;
+  --surface-muted: #101826;
+  --surface-soft: #1a2638;
+  --border-color: #253247;
+  --text-strong: #eff5ff;
+  --text-base: #c2cee1;
+  --text-soft: #8fa0ba;
+  --primary: #8db4e2;
+  --primary-strong: #bdd7f3;
+  --primary-soft: #11243a;
+  --shadow-soft: 0 20px 42px rgba(2, 6, 23, 0.35);
 }
 
 * {
@@ -19,6 +44,8 @@ html {
 body {
   margin: 0;
   min-width: 320px;
+  background: var(--app-bg);
+  color: var(--text-base);
 }
 
 button,
@@ -28,21 +55,53 @@ textarea {
   font: inherit;
 }
 
+#root {
+  min-height: 100vh;
+}
+
+.app-card {
+  background: var(--surface);
+  border: 1px solid var(--border-color);
+  border-radius: 1.5rem;
+  box-shadow: var(--shadow-soft);
+}
+
 .card {
-  @apply rounded-2xl border border-slate-200 bg-white p-4 sm:p-5;
-  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+  border-radius: 1.25rem;
+  border: 1px solid var(--border-color);
+  background: var(--surface);
+  box-shadow: var(--shadow-soft);
+  @apply p-4 sm:p-5;
 }
 
 .field {
-  @apply mt-1 w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-blue-700 focus:ring-2 focus:ring-blue-100;
+  border: 1px solid var(--border-color);
+  background: var(--surface-muted);
+  color: var(--text-strong);
+  @apply mt-1 w-full rounded-xl px-3.5 py-2.5 text-sm outline-none transition placeholder:text-slate-400 focus:ring-2;
+}
+
+.field:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--primary) 14%, transparent);
+}
+
+.field:disabled {
+  cursor: not-allowed;
+  opacity: 0.8;
 }
 
 .btn-primary {
-  @apply rounded-xl bg-blue-800 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-900;
+  background: var(--primary);
+  color: white;
+  @apply rounded-xl px-4 py-2.5 text-sm font-semibold transition hover:opacity-95;
 }
 
 .btn-secondary {
-  @apply rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-100;
+  border: 1px solid var(--border-color);
+  background: var(--surface-muted);
+  color: var(--text-strong);
+  @apply rounded-xl px-4 py-2.5 text-sm font-medium transition hover:opacity-90;
 }
 
 .btn-warning {
@@ -50,5 +109,23 @@ textarea {
 }
 
 .badge {
-  @apply inline-flex rounded-full px-2.5 py-1 text-xs font-semibold tracking-[0.03em];
+  @apply inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold tracking-[0.04em];
+}
+
+.nav-item {
+  @apply flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition;
+}
+
+.nav-item-active {
+  background: color-mix(in srgb, var(--primary) 12%, var(--surface));
+  color: var(--primary-strong);
+}
+
+.nav-item-inactive {
+  color: var(--text-base);
+}
+
+.nav-item-inactive:hover {
+  background: var(--surface-muted);
+  color: var(--text-strong);
 }

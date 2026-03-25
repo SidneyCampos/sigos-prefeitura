@@ -4,8 +4,10 @@ function Pagination({ meta, onChange }) {
   }
 
   return (
-    <div className="mt-4 flex flex-col gap-3 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
-      <p className="text-sm text-slate-500">Pagina {meta.page} de {meta.totalPages}</p>
+    <div className="mt-4 flex flex-col gap-3 rounded-2xl border border-[var(--border-color)] bg-[var(--surface-muted)] px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+      <p className="text-sm text-[var(--text-soft)]">
+        Pagina {meta.page} de {meta.totalPages}
+      </p>
       <div className="flex gap-2">
         <button
           type="button"

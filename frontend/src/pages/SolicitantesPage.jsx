@@ -30,36 +30,71 @@ function SolicitantesPage() {
 
   return (
     <div>
-      <PageHeader title="Solicitantes" description="Cadastre quem abre ou solicita os servicos." />
+      <PageHeader
+        title="Solicitantes"
+        description="Cadastre os solicitantes que abrem ou acompanham os pedidos."
+      />
 
-      <div className="grid gap-6 lg:grid-cols-[380px,1fr]">
+      <div className="grid gap-6 xl:grid-cols-[340px,minmax(0,1fr)]">
         <FormCard title="Novo solicitante">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="text-sm font-bold text-slate-600">Nome</label>
-              <input className="field" value={form.nome} onChange={(event) => setForm((state) => ({ ...state, nome: event.target.value }))} required />
+              <label className="text-sm font-medium text-[var(--text-base)]">Nome</label>
+              <input
+                className="field"
+                value={form.nome}
+                onChange={(event) =>
+                  setForm((state) => ({ ...state, nome: event.target.value }))
+                }
+                required
+              />
             </div>
             <div>
-              <label className="text-sm font-bold text-slate-600">Telefone</label>
-              <input className="field" value={form.telefone} onChange={(event) => setForm((state) => ({ ...state, telefone: event.target.value }))} />
+              <label className="text-sm font-medium text-[var(--text-base)]">Telefone</label>
+              <input
+                className="field"
+                value={form.telefone}
+                onChange={(event) =>
+                  setForm((state) => ({ ...state, telefone: event.target.value }))
+                }
+              />
             </div>
             <div>
-              <label className="text-sm font-bold text-slate-600">Setor</label>
-              <input className="field" value={form.setor} onChange={(event) => setForm((state) => ({ ...state, setor: event.target.value }))} />
+              <label className="text-sm font-medium text-[var(--text-base)]">Setor</label>
+              <input
+                className="field"
+                value={form.setor}
+                onChange={(event) =>
+                  setForm((state) => ({ ...state, setor: event.target.value }))
+                }
+              />
             </div>
-            <button className="btn-primary w-full" type="submit">Salvar solicitante</button>
+            <button className="btn-primary w-full" type="submit">
+              Salvar solicitante
+            </button>
           </form>
         </FormCard>
 
-        <div className="card">
-          <h3 className="text-2xl font-black text-slate-800">Solicitantes cadastrados</h3>
+        <div className="card min-w-0">
+          <h3 className="text-xl font-semibold text-[var(--text-strong)] sm:text-2xl">
+            Solicitantes cadastrados
+          </h3>
           <div className="mt-4 space-y-3">
             {solicitantes.length ? (
               solicitantes.map((solicitante) => (
-                <div key={solicitante.id} className="rounded-2xl border border-slate-200 p-4">
-                  <p className="text-lg font-bold text-slate-800">{solicitante.nome}</p>
-                  <p className="text-slate-500">{solicitante.telefone || "Sem telefone"}</p>
-                  <p className="text-slate-400">{solicitante.setor || "Sem setor informado"}</p>
+                <div
+                  key={solicitante.id}
+                  className="rounded-2xl border border-[var(--border-color)] bg-[var(--surface-muted)] p-4"
+                >
+                  <p className="text-base font-semibold text-[var(--text-strong)] sm:text-lg">
+                    {solicitante.nome}
+                  </p>
+                  <p className="text-sm text-[var(--text-base)]">
+                    {solicitante.telefone || "Sem telefone"}
+                  </p>
+                  <p className="text-sm text-[var(--text-soft)]">
+                    {solicitante.setor || "Sem setor informado"}
+                  </p>
                 </div>
               ))
             ) : (

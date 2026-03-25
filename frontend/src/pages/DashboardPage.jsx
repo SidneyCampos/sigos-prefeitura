@@ -18,7 +18,7 @@ import StatCard from "../components/StatCard.jsx";
 import StatusBadge from "../components/StatusBadge.jsx";
 import { getDashboard } from "../services/dashboardService.js";
 
-const pieColors = ["#1d4f91", "#375f9c", "#6384b8", "#93add1", "#c6d5ea", "#dbe7f5"];
+const pieColors = ["#1f4e89", "#4c76aa", "#7d9bc4", "#a7bbd8", "#c9d7ea", "#dce6f3"];
 
 function DashboardPage() {
   const [data, setData] = useState(null);
@@ -31,16 +31,16 @@ function DashboardPage() {
     <div>
       <PageHeader
         title="Dashboard"
-        description="Resumo operacional das ordens de servico da prefeitura."
+        description="Acompanhe rapidamente o volume de ordens e a distribuicao por setor e status."
       />
 
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-        <StatCard title="Ordens abertas" value={data?.totais.abertas || 0} tone="blue" />
-        <StatCard title="Em execucao" value={data?.totais.emExecucao || 0} tone="slate" />
+        <StatCard title="Ordens abertas" value={data?.totais.abertas || 0} tone="primary" />
+        <StatCard title="Em execucao" value={data?.totais.emExecucao || 0} tone="neutral" />
         <StatCard
           title="Concluidas hoje"
           value={data?.totais.concluidasHoje || 0}
-          tone="green"
+          tone="success"
         />
       </div>
 
@@ -51,11 +51,11 @@ function DashboardPage() {
               data={data?.ordensPorSetor || []}
               margin={{ top: 10, right: 8, bottom: 8, left: -20 }}
             >
-              <CartesianGrid strokeDasharray="3 3" stroke="#dbe4f0" />
-              <XAxis dataKey="nome" tick={{ fontSize: 12, fill: "#475569" }} />
-              <YAxis allowDecimals={false} tick={{ fill: "#475569" }} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#d9e2ee" />
+              <XAxis dataKey="nome" tick={{ fontSize: 12, fill: "#64748b" }} />
+              <YAxis allowDecimals={false} tick={{ fill: "#64748b" }} />
               <Tooltip />
-              <Bar dataKey="total" fill="#1d4f91" radius={[8, 8, 0, 0]} />
+              <Bar dataKey="total" fill="#1f4e89" radius={[8, 8, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </ChartCard>
@@ -69,8 +69,8 @@ function DashboardPage() {
                 nameKey="status"
                 cx="50%"
                 cy="50%"
-                outerRadius={105}
-                innerRadius={45}
+                outerRadius={104}
+                innerRadius={48}
                 paddingAngle={3}
                 label
               >
@@ -86,8 +86,10 @@ function DashboardPage() {
 
       <div className="card mt-6">
         <div className="flex items-center justify-between gap-3">
-          <h3 className="text-lg font-semibold text-slate-900 sm:text-xl">Ordens recentes</h3>
-          <span className="text-sm text-slate-400">Ultimos registros</span>
+          <h3 className="text-lg font-semibold text-[var(--text-strong)] sm:text-xl">
+            Ordens recentes
+          </h3>
+          <span className="text-sm text-[var(--text-soft)]">Ultimos registros</span>
         </div>
 
         <div className="mt-4 space-y-3">
@@ -95,13 +97,13 @@ function DashboardPage() {
             data.recentes.map((ordem) => (
               <div
                 key={ordem.id}
-                className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-slate-50/70 p-4 md:flex-row md:items-center md:justify-between"
+                className="flex flex-col gap-3 rounded-2xl border border-[var(--border-color)] bg-[var(--surface-muted)] p-4 md:flex-row md:items-center md:justify-between"
               >
                 <div className="min-w-0">
-                  <p className="truncate text-sm font-semibold text-slate-900">
+                  <p className="truncate text-sm font-semibold text-[var(--text-strong)]">
                     #{ordem.numero} - {ordem.titulo}
                   </p>
-                  <p className="text-sm text-slate-500">{ordem.setorResponsavel?.nome}</p>
+                  <p className="text-sm text-[var(--text-soft)]">{ordem.setorResponsavel?.nome}</p>
                 </div>
                 <StatusBadge value={ordem.status} />
               </div>
